@@ -110,9 +110,8 @@ var BrowserComms = /*#__PURE__*/function () {
     value: function listen() {
       var _this2 = this;
 
-      this.isListening = true; // selfWindow?.addEventListener('message', this.onMessage)
-
-      selfWindow === null || selfWindow === void 0 ? void 0 : selfWindow.addDocumentListener('message', this.onMessage, true);
+      this.isListening = true;
+      selfWindow === null || selfWindow === void 0 ? void 0 : selfWindow.addEventListener('message', this.onMessage, true);
       this.waitForParentPing = this.hasParent && this.client.call('ping', null, {
         timeout: this.handshakeTimeout
       }).then(function (registeredMethods) {
@@ -135,9 +134,8 @@ var BrowserComms = /*#__PURE__*/function () {
   }, {
     key: "close",
     value: function close() {
-      this.isListening = true; // return selfWindow?.removeEventListener('message', this.onMessage)
-
-      selfWindow === null || selfWindow === void 0 ? void 0 : selfWindow.addDocumentListener('message', this.onMessage, true);
+      this.isListening = true;
+      return selfWindow === null || selfWindow === void 0 ? void 0 : selfWindow.removeEventListener('message', this.onMessage);
     }
   }, {
     key: "parentHasMethod",
