@@ -67,8 +67,7 @@ class BrowserComms {
   // Must be called before .call()
   listen () {
     this.isListening = true
-    // selfWindow?.addEventListener('message', this.onMessage)
-    selfWindow?.addDocumentListener('message', this.onMessage, true)
+    selfWindow?.addEventListener('message', this.onMessage, true)
 
     this.waitForParentPing = this.hasParent && this.client.call('ping', null, { timeout: this.handshakeTimeout })
       .then((registeredMethods) => {
@@ -90,8 +89,7 @@ class BrowserComms {
 
   close () {
     this.isListening = true
-    // return selfWindow?.removeEventListener('message', this.onMessage)
-    selfWindow?.addDocumentListener('message', this.onMessage, true)
+    return selfWindow?.removeEventListener('message', this.onMessage)
   }
 
   parentHasMethod (method) {
